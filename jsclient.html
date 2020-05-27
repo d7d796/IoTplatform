@@ -1,0 +1,415 @@
+  <!DOCTYPE html>
+  <meta charset="utf-8" />
+  <title>Educational IoT Platform</title>
+
+  
+  <br>
+  <p id="content1"></p>
+  <p id="content2"></p>
+  <p id="content3"></p>
+  <p id="content4"></p>
+  <script language="javascript" type="text/javascript">
+
+  var course = "actmon"
+  var request = "actmon:30:10"
+  var wsUri = "ws://localhost:9997";
+  var output;
+  var yy = 0;
+  var values1 = [];
+  var values2 = [];
+  var values3 = [];
+  var values4 = [];
+  var flag = 0;
+  var len1 = 0;
+  var len2 = 0;
+  var i = 0;
+
+  //function init()
+  function btnFunc()
+  {
+    output = document.getElementById("output");
+    websocket = new WebSocket(wsUri);
+    websocket.onopen = function(evt) { onOpen(evt) };
+    websocket.onclose = function(evt) { onClose(evt) };
+    websocket.onmessage = function(evt) { onMessage(evt) };
+    websocket.onerror = function(evt) { onError(evt) };
+    sleep(5000)
+    if(course.localeCompare("actmon") == 0){
+    	plotting_actmon();
+    }
+    if(course.localeCompare("envmon") == 0){
+    	plotting_envmon();
+    }
+  }
+
+  function onOpen(evt)
+  {
+    writeToScreen("CONNECTED");
+    doSend(request);
+  }
+
+  function onClose(evt)
+  {
+    writeToScreen("DISCONNECTED");
+  }
+
+  function onMessage(evt)
+  {
+    writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
+    <!--websocket.close();-->
+    document.getElementById("btn_change").disabled = false;    
+    return false;
+  }
+
+  function onError(evt)
+  {
+    writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+  }
+
+  function doSend(message)
+  {
+    writeToScreen("SENT: " + message);
+    websocket.send(message);
+  }
+
+  function writeToScreen(message)
+  {
+    var pre = document.createElement("p");
+    pre.style.wordWrap = "break-word";
+    pre.innerHTML = message;
+    output.appendChild(pre);
+  }
+
+  //window.addEventListener("load", init, false);
+  
+
+ 
+  setInterval(function() {
+     var httpRequest1;
+     httpRequest1 = new XMLHttpRequest();
+     if (!httpRequest1) {
+          alert('Giving up :( Cannot create an XMLHTTP instance');
+          return false;
+      }
+
+      httpRequest1.onreadystatechange = setContents1;
+      httpRequest1.open('GET', 'RPi1.txt');
+      httpRequest1.send();
+
+      function setContents1() {
+        var reading1 = "";
+	//var i;  
+  	values1 = [];
+  	values2 = [];
+	len2 = i;
+	
+     	if (httpRequest1.readyState === XMLHttpRequest.DONE) {
+       		if (httpRequest1.status === 200) {
+        	        reading1 = httpRequest1.responseText.split('\n');
+	          	for(i = 0;i<reading1.length;i++){
+				if(course.localeCompare("envmon") == 0){
+					values1.push(reading1[i].split(":")[2]);
+					values2.push(reading1[i].split(":")[3]);
+				}
+				if(course.localeCompare("actmon") == 0){
+					values1.push(reading1[i].split(":")[3]);
+					values2.push(reading1[i].split(":")[5]);
+				}
+				//document.getElementById("content1").innerHTML = values1;
+ 	 		}
+			
+       		} else {
+         		alert('There was a problem with the request.');
+       		}
+    	}
+	//document.getElementById("content3").innerHTML = reading1[i-2].split(":")[2];
+        len1 = values1.length;	
+        var v1 = values1.length - 2;
+	if(len1 > len2){
+		//document.getElementById("content3").innerHTML = values1[v1];
+		flag = 1;	
+	}	
+      }
+
+
+
+     var httpRequest2;
+     httpRequest2 = new XMLHttpRequest();
+
+     if (!httpRequest2) {
+          alert('Giving up :( Cannot create an XMLHTTP instance');
+          return false;
+      }
+
+      httpRequest2.onreadystatechange = setContents2;
+      httpRequest2.open('GET', 'RPi2.txt');
+      httpRequest2.send();
+
+      function setContents2() {
+        var reading2 = "";
+  	values3 = [];
+	values4 = [];
+     	if (httpRequest2.readyState === XMLHttpRequest.DONE) {
+       		if (httpRequest2.status === 200) {
+        		reading2 = httpRequest2.responseText.split('\n');
+			for(var i = 0;i<reading2.length;i++){
+				if(course.localeCompare("envmon") == 0){
+					values3.push(reading2[i].split(":")[2]);
+					values4.push(reading2[i].split(":")[3]);
+				}
+				if(course.localeCompare("actmon") == 0){
+					values3.push(reading2[i].split(":")[3]);
+				}                
+ 	 		}
+       		} else {
+         		alert('There was a problem with the request.');
+       		}
+    	}
+	var v2 = values2.length - 2;
+	//document.getElementById("content4").innerHTML = values2[v2];
+      }
+  }, 1000);    
+   
+//window.onload = function () {
+function plotting_envmon(){
+var dataPoints1 = [];
+var dataPoints2 = [];
+var dataPoints3 = [];
+var dataPoints4 = [];
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	zoomEnabled: true,
+	title: {
+		text: "Environment Monitoring"
+	},
+	axisX: {
+		title: "Time"
+	},
+	axisY:{
+		//valueFormatString: "hh:mm:ss",
+		includeZero: false
+	}, 
+	data: [{ 
+		type: "line",
+		//xValueType: "dateTime",
+		yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi1 Temprature",
+		dataPoints: dataPoints1
+		},
+		{ 
+		type: "line",
+		//xValueType: "dateTime",
+		yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi1 Humidity",
+		dataPoints: dataPoints2
+		},
+		{ 
+		type: "line",
+		//xValueType: "dateTime",
+		yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi2 Dust",
+		dataPoints: dataPoints3
+		},
+		{ 
+		type: "line",
+		//xValueType: "dateTime",
+		yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi2 Air Quality",
+		dataPoints: dataPoints4
+		}
+		]
+});
+
+
+
+var updateInterval = 1000;
+// initial value
+var yValue1 = 100; 
+var yValue2 = 105;
+var yValue3 = 100; 
+var yValue4 = 105;
+
+
+//var time = new Date;
+// starting at 9.30 am
+//time.setHours(1);
+//time.setMinutes(30);
+//time.setSeconds(00);
+//time.setMilliseconds(00);
+
+function updateChart(count) {
+    if(flag == 1 || count == dataLength){
+	count = count || 1;
+	
+	for (var i = 0; i < count; i++) {
+		//time.setTime(time.getTime()+ updateInterval);	
+		yValue1 = Number(values1[values1.length-2]);
+		yValue2 = Number(values2[values2.length-2]);	
+		yValue3 = Number(values3[values3.length-2]);
+		yValue4 = Number(values4[values4.length-2]);	
+		dataPoints1.push({
+			//x: time.getTime()+ updateInterval,
+			x: new Date(),
+			y: yValue1
+		});
+		dataPoints2.push({
+			//x: time.getTime()+ updateInterval,
+			x: new Date(),
+			y: yValue2
+		});		
+		dataPoints3.push({
+			//x: time.getTime()+ updateInterval,
+			x: new Date(),
+			y: yValue3
+		});
+		dataPoints4.push({
+			//x: time.getTime()+ updateInterval,
+			x: new Date(),
+			y: yValue4
+		});		
+	}
+
+	// updating legend text with  updated with y Value 
+	chart.options.data[0].legendText = " Temprature";
+        chart.options.data[1].legendText = " Humidity " ;
+	chart.options.data[2].legendText = " Dust";
+        chart.options.data[3].legendText = " Air Quality " ;
+	chart.render();
+	flag = 0;
+    }
+}
+// generates first set of dataPoints 
+//updateChart(20);	
+setInterval(function(){updateChart()}, updateInterval);
+
+}
+
+
+function plotting_actmon(){
+var dataPoints1 = [];
+var dataPoints2 = [];
+var dataPoints3 = [];
+
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	zoomEnabled: true,
+	title: {
+		text: "Activity Monitoring"
+	},
+	axisX: {
+		title: "Time"
+	},
+	axisY:{
+		//valueFormatString: "hh:mm:ss",
+		includeZero: false
+	}, 
+	data: [{ 
+		type: "column",
+		//xValueType: "dateTime",
+		//yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi1 light",
+		dataPoints: dataPoints1
+		},
+		{ 
+		type: "column",
+		//xValueType: "dateTime",
+		//yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi1 sound",
+		dataPoints: dataPoints2
+		},
+		{ 
+		type: "column",
+		//xValueType: "dateTime",
+		//yValueFormatString: "$####.00",
+		//xValueFormatString: "hh:mm:ss",
+		showInLegend: true,
+		name: "RPi2 Motion",
+		dataPoints: dataPoints3
+		}]
+});
+
+
+
+var updateInterval = 1000;
+// initial value
+var yValue1 = 100; 
+var yValue2 = 105;
+var yValue3 = 100; 
+
+
+
+//var time = new Date;
+// starting at 9.30 am
+//time.setHours(1);
+//time.setMinutes(30);
+//time.setSeconds(00);
+//time.setMilliseconds(00);
+
+function updateChart(count) {
+    if(flag == 1 || count == dataLength){
+	count = count || 1;
+	
+	for (var i = 0; i < count; i++) {
+		//time.setTime(time.getTime()+ updateInterval);	
+		yValue1 = Number(values1[values1.length-2]);
+		yValue2 = Number(values2[values2.length-2]);	
+		yValue3 = Number(values3[values3.length-2]);
+			
+		dataPoints1.push({
+			//x: time.getTime()+ updateInterval,
+			label: new Date(),
+			y: yValue1
+		});
+		dataPoints2.push({
+			//x: time.getTime()+ updateInterval,
+			label: new Date(),
+			y: yValue2
+		});		
+		dataPoints3.push({
+			//x: time.getTime()+ updateInterval,
+			label: new Date(),
+			y: yValue3
+		});
+			
+	}
+
+	// updating legend text with  updated with y Value 
+	chart.options.data[0].legendText = " Light";
+
+        chart.options.data[1].legendText = " Sound " ;
+	chart.options.data[2].legendText = " Motion";
+
+	chart.render();
+	flag = 0;
+    }
+}
+// generates first set of dataPoints 
+//updateChart(20);	
+setInterval(function(){updateChart()}, updateInterval);
+
+}
+
+  function sleep(ms) {
+  	return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  </script>
+  </body>
+<h2> Educational IoT Platform</h2>
+<button id="btn_change" onclick="btnFunc()">Start</button>
+<div id="output"></div>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  
+  

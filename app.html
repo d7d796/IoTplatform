@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html  >
+<head>
+
+    <title>app</title>
+
+    <style>
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zo-mM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoamM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zo2mM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoymM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoKmM4MwWJU.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+
+
+
+
+
+        p{  color: silver; /* for topic font */
+            font-family: 'Lobster', cursive;
+            font-size: 65px;
+            line-height: 160px;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+
+        .button { /*  button style */
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 10px 25px;
+            color: white;
+            background-color: #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .button:hover {/*  thats after clicing button */
+            background-color: #555;
+            color: white;
+        }
+
+
+        .butt1 { /* inform  button style */
+
+        /* image of button inform */
+
+            display: inline-block;
+            width: 200px;
+            height:200px;
+
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(evSensor.png); }
+
+
+        .butt3 { /*  button style */
+
+            /* image of button inform */
+
+            display: inline-block;
+            width: 200px;
+            height:200px;
+
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(actSensor.jpg); }
+
+
+
+        html {/* the background image*/
+            background: url(appbg.jpg) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+
+
+        p1{ /* font style */
+            color: silver;
+            text-align: center;
+            font-size: 26px;
+            font-family: sans-serif	;
+            font-style: italic;
+            position: absolute;;left: 200px;
+            right: 200px;
+          }
+
+        .column {/*  to make image in the same column*/
+            float: left;
+            padding-left: 50%;
+            width: 20.33%;
+            padding: 30px;
+        }
+
+
+        .row::after {/*  to sort image row */
+
+            content: " ";
+            clear: both;
+            display: table;
+        }
+
+          input[type=checkbox].css-checkbox{ /* click check box */
+              display: none; }
+
+
+
+        input[type=checkbox].css-checkbox:checked + label.css-label {
+            width: auto;
+            background-position: center;
+            border: 3px solid  #ddd;}
+
+
+
+
+
+        @-moz-keyframes move {/* move of anmation */
+            0% {
+                -moz-transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                -moz-transform: scale(0.7);
+                opacity: 0.1;
+            }
+        }
+
+        @-webkit-keyframes move {
+            0% {
+                -webkit-transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                -webkit-transform: scale(0.7);
+                opacity: 0.1;
+            }  }
+
+        h4{
+            color:white;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 20px;}
+
+    </style>
+
+</head>
+<body>
+<br>
+<h1><p>application layer Page </p></h1>
+
+
+
+
+
+
+
+<p1 > The internet of things have been used in a lot of things
+    in our life and useful and make our life easier and faster so we will
+    talk about some applications that can be used in IoT
+    <br><br><br>
+
+
+    <hr>
+    <br/>
+<div class="column">
+    <a class="row">
+        <a href="jsclient.html"> <button class="butt1"><h4>enviroment monituring</h4></a></button></a>
+    </div></div>
+
+    <div class="column">
+    <div class="row">
+        <a href="jsclient.html">  <button class="butt3"><h4>activiny monituring</h4></button></a>
+    </div></div>
+
+
+
+<br/><br/><br/><br/><br/>
+
+
+
+
+    <p1 id="demo"></p1>
+
+
+
+<script>
+
+    function text(n) {
+        if(n==1){
+            document.getElementById("demo")
+            var socket = new WebSocket("ws://localhost:9997");
+            socket.onopen = function () {
+                socket.send('envmon:10:2');
+            };
+
+            socket.onmessage = function (evt) {
+                alert(evt.data);
+                socket.close();
+            };
+
+        }
+        if(n==2){
+            document.getElementById("demo")
+            var socket = new WebSocket("ws://localhost:9997");
+            socket.onopen = function () {
+                socket.send('actmon:10:2');
+            };
+
+            socket.onmessage = function (evt) {
+                alert(evt.data);
+                socket.close();
+            };
+
+        }
+    }
+
+
+
+
+
+</script>
+
+
+</body>
+
+
+</html>
+
+
+

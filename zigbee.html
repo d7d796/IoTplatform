@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html  >
+<head>
+
+
+
+
+
+
+
+    <title>zigbee</title>
+
+    <style>
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zo-mM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoamM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zo2mM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoymM4MwWJXNqA.woff2) format('woff2');
+            unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        }
+        /* topic font */
+        @font-face {
+            font-family: 'Lobster';
+            font-style: normal;
+            font-weight: 400;
+            src: local('Lobster Regular'), local('Lobster-Regular'), url(http://fonts.gstatic.com/s/lobster/v20/neILzCirqoswsqX9zoKmM4MwWJU.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+
+
+
+
+
+
+
+
+
+        p{  color: silver; /* for topic font */
+            font-family: 'Lobster', cursive;
+            font-size: 65px;
+            line-height: 160px;
+            font-weight: normal;
+            text-align: center;
+            margin: 0 0 18px;
+        }
+
+        .button { /*  button style */
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 10px 25px;
+            color: black;
+            background-color: #ddd;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .button:hover {/*  thats after clicing button */
+            background-color: #555;
+            color: white;
+        }
+
+
+        .butt1 { /* inform  button style */
+
+        /* image of button inform */
+            padding-left: auto;
+            display: inline-block;
+            width: 200px;
+            height:155px;
+           position: center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(more.png); }
+
+        .butt2 { /*  button style */
+
+            /*  image of button inform */
+            padding-left: auto;
+            display: inline-block;
+            width: 200px;
+            height:155px;
+            position: center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(more2.png); }
+        .butt3 { /*  button style */
+
+            /* image of button inform */
+            padding-left: auto;
+            display: inline-block;
+            width: 200px;
+            height:155px;
+            position: center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(more3.png); }
+        .butt4 { /*  button style */
+
+            /*  image of button inform */
+            padding-left: auto;
+            display: inline-block;
+            width: 200px;
+            height:155px;
+            position: center;
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: cover;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            background-image: url(more4.png); }
+
+
+
+
+        html {/* the background image*/
+            background: url(new1.gif) no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+
+
+
+        p1{ /* font style */
+            color: silver;
+            text-align: center;
+            font-size: 26px;
+            font-family: sans-serif	;
+            font-style: italic;
+            position: absolute;;left: 200px;
+            right: 200px;
+          }
+        .class1 {
+            max-height:0px;
+            transition:max-height 1s;
+            overflow:hidden;
+
+        }
+        .class2 {
+            max-height:0px;
+            transition:max-height 1s;
+            overflow:hidden;
+
+        }
+        .column {/*  to make image in the same column*/
+            float: left;
+            width: 20.33%;
+            padding: 15px;
+        }
+
+
+        .row::after {/*  to sort image row */
+
+            content: " ";
+            clear: both;
+            display: table;
+        }
+
+          input[type=checkbox].css-checkbox{ /* click check box */
+              display: none; }
+
+        .css-label{/*  image of nodes */
+            padding-left: auto;
+            display: flex;
+            width: 200px;
+            height:200px;
+            background-image: url(node.jpg);
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: contain;
+        }
+        .css-label2{
+            /*  image of n sumeted */
+            display: flex;
+            width: 200px;
+            height:200px;
+            background-image: url(n.png);
+            background-repeat: no-repeat;
+            background-color: transparent;
+            background-size: contain;
+        }
+
+        input[type=checkbox].css-checkbox:checked + label.css-label {
+            width: auto;
+            background-position: center;
+            border: 3px solid  #ddd;}
+
+
+
+
+
+
+        .barlittle {/*  anmation style */
+            background-color:#ddd;
+            background-image: -moz-linear-gradient(45deg, #b7c8e7 25%,#f9fffd);
+            background-image: -webkit-linear-gradient(45deg, #b7c8e7 25%, #f9fffd);
+            border-left: 1px solid #111;
+            border-top: 1px solid #111;
+            border-right: 1px solid #333;
+            border-bottom: 1px solid #333;
+            width: 80px;
+            height: 20px;
+            float: left;
+           
+
+            -moz-transform: scale(0.7);
+            -webkit-transform: scale(0.7);
+            -moz-animation: move 1s infinite linear;
+            -webkit-animation: move 1s infinite linear;
+        }
+
+        #block_1 {/*these blocks for anmation */
+            -moz-animation-delay: .10s;
+            -webkit-animation-delay: .1s;
+        }
+
+        #block_2 {
+            -moz-animation-delay: .20s;
+            -webkit-animation-delay: .2s;
+        }
+
+        #block_3 {
+            -moz-animation-delay: .30s;
+            -webkit-animation-delay: .3s;
+        }
+
+        #block_4 {
+            -moz-animation-delay: .40s;
+            -webkit-animation-delay: .4s;
+        }
+
+        #block_5 {
+            -moz-animation-delay: .50s;
+            -webkit-animation-delay: .6s;
+        }
+
+
+
+        @-moz-keyframes move {/* move of anmation */
+            0% {
+                -moz-transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                -moz-transform: scale(0.7);
+                opacity: 0.1;
+            }
+        }
+
+        @-webkit-keyframes move {
+            0% {
+                -webkit-transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                -webkit-transform: scale(0.7);
+                opacity: 0.1;
+            }  }
+
+    </style>
+
+</head>
+<body>
+<br>
+<h1><p>zigbee Page </p></h1>
+
+
+
+
+
+
+
+<p1 >  Internet of Things (IoT) is a trend technology attracting<br/> many people from around the world we will learn how to start undrstanding concept of it
+
+     <br>
+
+    <br><br>
+
+
+    <hr>
+    <div class="row">
+        <div class="column">
+
+            <button class="butt1"onclick="text(1)"></button> </div>
+        <div class="column">
+
+            <button class="butt3" onclick="text(2)"></button></div>
+        <div class="column">
+
+            <button class="butt2"onclick="text(3)"></button> </div>
+        <div class="column">
+            <button class="butt4"onclick="text(4)"></button> </div>
+    </div>
+    <p1 id="demo"></p1>
+
+
+    <br><br><br><br><br> <br> <br> <br> <br>
+    <br> <br>  <p1 id="experince">If you want to try an experience :</p1>
+    <br><button class="button" onclick=" show()">Start </button>
+    <hr>
+
+
+
+    <div id="id1" class="class1">
+
+        <div class="row">
+            <div class="column">
+
+                <input id="checkboxid" type="checkbox" value="1" class="css-checkbox">
+                <label for="checkboxid" class="css-label"></label> 1           </div>
+            <div class="column">
+
+
+
+                <input id="checkboxid2" type="checkbox" value="2" class="css-checkbox">
+                <label for="checkboxid2" class="css-label"></label>  2        </div>
+
+        <div class="column">
+
+            <input id="checkboxid3" type="checkbox" value="3" class="css-checkbox">
+            <label for="checkboxid3" class="css-label"></label>  3      </div>
+
+        <div class="column">
+
+            <input id="checkboxid4" type="checkbox" value="4" class="css-checkbox">
+            <label for="checkboxid4" class="css-label"></label>4     </div>
+    </div>
+        <br>
+
+
+
+        <br> <br>
+        <a href="jsclient.html"> <button   class="button" >Start</button><br> </a><br>
+       <hr>
+    </div>
+
+
+
+
+    <br><br>
+    <div id="ww" class="class2"   >
+        <div id="n1" class="css-label2" style="float: left"></div>
+        <div id="n2" class="css-label2" style="float: right"></div>
+
+        <br><br><br>
+        <div id="block_1" class="barlittle" ></div>
+        <div id="block_2" class="barlittle"></div>
+        <div id="block_3" class="barlittle"></div>
+        <div id="block_4" class="barlittle"></div>
+        <div id="block_5" class="barlittle"></div>
+
+
+    </div>
+
+        <br><br><br>
+
+
+
+
+</p1>
+
+
+
+<script>
+
+
+
+
+
+
+
+ var node ={
+
+     nodNum: function () {
+         document.getElementById("ww").style.maxHeight = "800px";
+
+         var cont = 0;
+         var n1;
+         var n2;
+         var x1 = document.getElementById("checkboxid");
+         var x2 = document.getElementById("checkboxid2");
+         var x3 = document.getElementById("checkboxid3");
+         var x4 = document.getElementById("checkboxid4");
+
+
+         if (x1.checked == true) {
+
+             n1 = 1;
+             cont = 1;
+
+
+
+
+
+         }
+         if (x2.checked == true){
+
+             if (cont == 0){
+                 n1 = 2;
+                 cont=1;
+             }
+             else{
+                 n2 =2; }}
+
+
+         if (x3.checked == true){
+
+             if (cont == 0){
+
+                 n1 = 3;
+                 cont=1;
+             }
+             else{
+                 n2 = 3;}}
+
+
+         if (x4.checked == true){
+
+                 n2 = 4;}
+
+
+         document.getElementById("n1").innerHTML = n1;
+         document.getElementById("n2").innerHTML = n2;
+
+
+
+
+     }
+
+
+ }
+
+
+
+
+function text(n) {
+    if(n==1){
+        document.getElementById("demo").innerHTML = "Zigbee used to create personal area networks.with small, " +
+            "low-power digital radios, such as for home automation,medical device data collection, and other " +
+            "low-power low-bandwidth needsdesigned for small scale projects which need wireless connection.\n" ;}
+
+     if(n==2){
+    document.getElementById("demo").innerHTML = "+ Zigbee is a low-power" +
+        "    <br>     + Less expensive than other wireless personal area networks";}
+    if(n==3){
+        document.getElementById("demo").innerHTML = " - Power consumption limits transmission distances to 10_100 meters\n" +
+            "   <br> - Zigbee has a defined rate of 250 kbit/s";}
+    if(n==4){
+        document.getElementById("demo").innerText = "  Zigbee is not for situations with high mobility among nodes.Hence, it is not suitable for tactical ad hoc radio networks in the battlefield, where high " +
+            "data rate and high mobility is present and needed. The resulting network will use" +
+            "    very small amounts of power individual devices must have a battery life of at least two years to pass Zigbee certification.";}
+
+}
+    function show() {
+        document.getElementById('id1').style.maxHeight = "800px";/*   the function for node image click*/
+    }
+
+
+
+
+</script>
+
+
+</body>
+
+
+</html>
+
+
+
